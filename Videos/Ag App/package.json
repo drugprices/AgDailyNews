@@ -10,7 +10,8 @@
     "lint": "next lint",
     "fetch:weather": "node --loader ts-node/esm scripts/fetchWeather.ts",
     "fetch:markets": "node --loader ts-node/esm scripts/fetchMarkets.ts",
-    "fetch:news": "node --loader ts-node/esm scripts/fetchNews.ts"
+    "fetch:news": "node --loader ts-node/esm scripts/fetchNews.ts",
+    "vercel-build": "next build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.86.0",
