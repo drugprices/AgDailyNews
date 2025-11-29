@@ -6,7 +6,12 @@ import { useUser } from "@/lib/user-context";
 
 export default function WeatherPage() {
   const { user } = useUser();
-  const location = user?.preferences.location;
+  const location =
+    user?.preferences.location ?? {
+      country: "USA",
+      state_region: "Iowa",
+      nearest_town: "Des Moines"
+    };
 
   return (
     <div>
@@ -16,10 +21,10 @@ export default function WeatherPage() {
       </p>
 
       <div className="card mb-4">
-        <div className="text-sm text-textMuted mb-1">Today — {mockWeatherToday.date}</div>
+        <div className="text-sm text-textMuted mb-1">Today · {mockWeatherToday.date}</div>
         <div className="flex items-center justify-between mb-2">
           <div className="text-3xl">
-            ☀️ {mockWeatherToday.temp_high}° / {mockWeatherToday.temp_low}°
+            🌤 {mockWeatherToday.temp_high}° / {mockWeatherToday.temp_low}°
           </div>
           <div className="text-sm text-right">
             <div>Rain: {mockWeatherToday.precipitation_chance}%</div>
@@ -28,7 +33,7 @@ export default function WeatherPage() {
         </div>
         <div className="text-sm mb-2">
           {mockWeatherToday.risk_flags.length === 0 ? (
-            <span>⚠️ No major risks today.</span>
+            <span>✅ No major risks today.</span>
           ) : (
             <span>Risk: {mockWeatherToday.risk_flags.join(", ")}</span>
           )}
@@ -48,7 +53,11 @@ export default function WeatherPage() {
                 {d.temp_high}° / {d.temp_low}°
               </div>
               <div className="text-2xl mb-1">
-                {d.conditions.includes("Rain") ? "🌧️" : d.conditions.includes("Cloud") ? "⛅" : "☀️"}
+                {d.conditions.includes("Rain")
+                  ? "🌧"
+                  : d.conditions.includes("Cloud")
+                  ? "☁️"
+                  : "🌤"}
               </div>
               <div className="text-xs text-textMuted">
                 {d.precipitation_chance}% rain

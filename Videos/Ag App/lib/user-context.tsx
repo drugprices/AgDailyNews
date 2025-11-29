@@ -239,7 +239,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const completeOnboarding = (prefs: Partial<UserPreferences>) => {
-    setUser((prev) => {
+    setUserState((prev) => {
       const base = prev ?? createGuestUser();
       const merged: User = {
         ...base,
@@ -265,6 +265,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         void supabase.from("profiles").upsert(row, { onConflict: "id" });
       }
 
+      saveToStorage(merged);
       return merged;
     });
   };
